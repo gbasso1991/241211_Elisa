@@ -662,7 +662,7 @@ fnames_m=np.array(fnames_m)
 
 if detector_ciclos_descartables:
     archivos_in_out=10
-    porcentaje_diferencia=50#%
+    porcentaje_diferencia=20#%
     print(f'Se identifican archivos cuya Mag maxima difieren un {porcentaje_diferencia}% de la')
     print(f'Mag max promedio = {np.mean(Mag_max[archivos_in_out:-archivos_in_out]):.0f}({np.std(Mag_max[archivos_in_out:-archivos_in_out]):.0f}) A/m de los {len(Mag_max[archivos_in_out:-archivos_in_out])} valores centrales.')
 
@@ -787,6 +787,18 @@ if Ciclo_promedio:
         M_prom_ua=M0_ua/Num_ciclos_m
         H_prom=H0/Num_ciclos_m
         M_prom=M0/Num_ciclos_m
+    
+    # Encontrar la longitud mínima
+    min_length = min(len(vec) for vec in [t_prom,H_prom_ua,M_prom_ua,H_prom,M_prom])
+
+    # Recortar todos los vectores a la longitud mínima
+    t_prom = t_prom[:min_length]
+    H_prom_ua = H_prom_ua[:min_length]
+    M_prom_ua = M_prom_ua[:min_length]
+    H_prom = H_prom[:min_length]
+    M_prom = M_prom[:min_length]
+        
+        
     # '''
     # Exporto ciclos promedio en ASCII, primero en V.s, despues en A/m :
     # | Tiempo (s) | Campo (V.s) | Magnetizacion (V.s) | Campo (A/m) |  Magnetizacion (A/m)
